@@ -1,0 +1,2 @@
+s = "defdefdefabcabc"
+goal = "defdefabcabcdef"
