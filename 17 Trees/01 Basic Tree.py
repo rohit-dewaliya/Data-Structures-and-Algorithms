@@ -28,13 +28,13 @@ Traversal of Binary Tree-----------#
 '''
 from collections import deque
 
-class BinaryTree:
+class TreeNode:
     def __init__(self, data):
         self.data = data
         self.left = None
         self.right = None
 
-class Tree:
+class BinaryTree:
     def __init__(self, root):
         self.root = root
 
@@ -71,25 +71,57 @@ class Tree:
             if node.right:
                 queue.append(node.right)
 
+    def search_node(self, node_vaue):
+        if not self.root:
+            return
+        queue = deque([self.root])
+        while queue:
+            node = queue.popleft()
+            if node.data == node_vaue:
+                return "Node Found"
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+        return "Node not found."
 
-new_binary_tree = BinaryTree('Drinks')
-new_left_child = BinaryTree('Hot')
-new_right_child = BinaryTree('Cold')
+    def insert_new_node(self, new_node):
+        if not self.root:
+            self.root = new_node
+        queue = deque([self.root])
+        while queue:
+            node = queue.popleft()
+            if node.left:
+                queue.append(node.left)
+            else:
+                node.left = new_node
+                return "Successfully Added the New Node"
+            if node.right:
+                queue.append(node.right)
+            else:
+                node.right = new_node
+                return "Successful Added the New Node"
+
+
+
+new_binary_tree = TreeNode('Drinks')
+new_left_child = TreeNode('Hot')
+new_right_child = TreeNode('Cold')
 
 new_binary_tree.left = new_left_child
 new_binary_tree.right = new_right_child
 
-new_left_child_1 = BinaryTree('Chai')
-new_right_child_1 = BinaryTree('Coffee')
+new_left_child_1 = TreeNode('Chai')
+new_right_child_1 = TreeNode('Coffee')
 new_left_child.left = new_left_child_1
 new_left_child.right = new_right_child_1
 
-new_left_child_2 = BinaryTree('Non Alcoholic')
-new_right_child_2 = BinaryTree('Alcoholic')
+new_left_child_2 = TreeNode('Non Alcoholic')
+new_right_child_2 = TreeNode('Alcoholic')
 new_right_child.left = new_left_child_2
 new_right_child.right = new_right_child_2
 
-tree = Tree(new_binary_tree)
+tree = BinaryTree(new_binary_tree)
 print("\n", "Pre Order Traversal")
 tree.pre_order_traversal(new_binary_tree)
 print("\n", "In Order Traversal")
@@ -97,4 +129,8 @@ tree.in_order_traversal(new_binary_tree)
 print("\n", "Post Order Traversal")
 tree.post_order_traversal(new_binary_tree)
 print("\n", "Level Order Traversal")
+tree.level_order_traversal()
+print(tree.search_node('Chai'))
+new_node = TreeNode('Cola')
+tree.insert_new_node(new_node)
 tree.level_order_traversal()
