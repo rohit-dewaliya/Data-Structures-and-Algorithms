@@ -26,18 +26,24 @@ class Solution:
         memo[key] = found
         return found
 
-    def exist(self, board: List[List[str]], word: str) -> List[str]:
+    def exist(self, board: List[List[str]], words: List[str]) -> List[str]:
         result = []
         memo = {}
 
-        for i in range(len(board)):
-            for j in range(len(board[0])):
-                if self.search(board, word, i, j, memo):
-                    return True
+        for word in words:
+            found = False
+            for i in range(len(board)):
+                for j in range(len(board[0])):
+                    if self.search(board, word, i, j, memo):
+                        result.append(word)
+                        found = True
+                        break
+                if found:
+                    break
 
-        return False
+        return result
 
 
 board = [["a", "b"], ["a", "a"]]
-words = 'aba'
+words = ["aba", "baa", "bab", "aaab", "aaa", "aaaa", "aaba"]
 print(Solution().exist(board, words))

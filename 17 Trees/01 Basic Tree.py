@@ -102,7 +102,66 @@ class BinaryTree:
                 node.right = new_node
                 return "Successful Added the New Node"
 
+    def get_deepest_node(self):
+        if not self.root:
+            return None
 
+        queue = deque([self.root])
+
+        while queue:
+            node = queue.popleft()
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+
+        return node
+
+    def delete_deepest_node(self, node_to_delete):
+        if not self.root:
+            return None
+
+        queue = deque([self.root])
+
+        while queue:
+            current_node = queue.popleft()
+
+            if current_node.left:
+                if current_node.left is node_to_delete:
+                    current_node.left = None  # Remove the node
+                    return
+                queue.append(current_node.left)
+
+            if current_node.right:
+                if current_node.right is node_to_delete:
+                    current_node.right = None  # Remove the node
+                    return
+                queue.append(current_node.right)
+
+    def delete_node(self, node):
+        if self.root is None:
+            return None
+        else:
+            queue = deque([self.root])
+
+            while queue:
+                current_node = queue.popleft()
+                if current_node.data == node:
+                    delete_node = self.get_deepest_node()
+                    current_node.data = delete_node.data
+                    self.delete_deepest_node(delete_node)
+                    return "Successfully deleted the node."
+                if current_node.left:
+                    queue.append(current_node.left)
+                if current_node.right:
+                    queue.append(current_node.right)
+        return "Failed to delete the node."
+
+    def delete_binary_tree(self):
+        self.root.data = None
+        self.root.left = None
+        self.root.right = None
+        return "Binary tree deleted successfully."
 
 new_binary_tree = TreeNode('Drinks')
 new_left_child = TreeNode('Hot')
@@ -134,3 +193,8 @@ print(tree.search_node('Chai'))
 new_node = TreeNode('Cola')
 tree.insert_new_node(new_node)
 tree.level_order_traversal()
+
+print(tree.delete_node('Coffee'))
+print("\n")
+tree.level_order_traversal()
+print(tree.delete_binary_tree())
