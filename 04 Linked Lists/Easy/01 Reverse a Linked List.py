@@ -1,20 +1,22 @@
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
-
-
+from ExtraFunctions.LinkedListFromArray import *
 def reverse_list(head):
+    if head == None or head.next == None:
+        return head
+
+    temp = head
+    prev = head
+    curr = head.next
+    next = curr.next
+
+    if next == None:
+        head = curr
+        curr.next = prev
+        prev.next = None
+        return head
+
     temp = head
     return head
 
-root = ListNode(1)
-root.next = ListNode(2)
-root.next.next = ListNode(3)
-root.next.next.next = ListNode(4)
-
-temp = root
-while temp:
-    print(f'{temp.val} -> ', end=" ")
-    temp = temp.next
-print('None')
+root = create_linked_list_from_list([1, 2, 3, 4, 5, 6, 7])
+head = reverse_list(root)
+print_linked_list(head)
