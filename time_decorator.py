@@ -35,9 +35,3 @@ def complexity_profiler(func):
         print(result)
 
     return wrapper
-
-'''
-from time_decorator import complexity_profiler
-
-@complexity_profiler
-'''

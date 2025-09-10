@@ -33,3 +33,26 @@ def list_to_tree(data):
         i += 1
 
     return root
+
+
+def print_level_order(root):
+    if not root:
+        print("Tree is empty")
+        return
+
+    queue = deque([root])
+    result = []
+
+    while queue:
+        node = queue.popleft()
+        if node:
+            result.append(node.val)
+            queue.append(node.left)
+            queue.append(node.right)
+        else:
+            result.append(None)
+
+    while result and result[-1] is None:
+        result.pop()
+
+    print(result)

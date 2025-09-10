@@ -128,13 +128,13 @@ class BinaryTree:
 
             if current_node.left:
                 if current_node.left is node_to_delete:
-                    current_node.left = None  # Remove the node
+                    current_node.left = None
                     return
                 queue.append(current_node.left)
 
             if current_node.right:
                 if current_node.right is node_to_delete:
-                    current_node.right = None  # Remove the node
+                    current_node.right = None
                     return
                 queue.append(current_node.right)
 
